@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import dj_database_url
 from pathlib import Path
 from os.path import join, dirname
 from os import environ
@@ -86,6 +87,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "marketingbot.wsgi.application"
 
+# Database
+# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+
+MAX_CONN_AGE = 600
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -96,6 +101,12 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+if "DATABASE_URL" in environ:
+    # Configure Django for DATABASE_URL environment variable.
+    DATABASES["default"] = dj_database_url.config(  # type: ignore
+        conn_max_age=MAX_CONN_AGE, ssl_require=True
+    )
 
 
 # Password validation
