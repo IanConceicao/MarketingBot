@@ -1,2 +1,2 @@
-release: python manage.py migrate && python manage.py loadddata startermodels.json
+release: python manage.py migrate && python manage.py loaddata startermodels.json
 web: gunicorn marketingbot.wsgi

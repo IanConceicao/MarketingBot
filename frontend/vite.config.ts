@@ -7,7 +7,10 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
-  plugins: [react(), EnvironmentPlugin(["BACKEND_URL"])],
+  plugins: [
+    react(),
+    EnvironmentPlugin({ BACKEND_URL: "http://localhost:8000/" }),
+  ],
   publicDir: "public",
   server: {
     host: true,
