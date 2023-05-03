@@ -1,6 +1,6 @@
 import axios from "axios"
-
-const backendUrl = process.env.BACKEND_URL
+const LOCAL_URL = "http://localhost:8000"
+let BACKEND_URL = (process.env.BACKEND_URL || LOCAL_URL) + "/api/"
 const headers = { "Content-Type": "application/json" }
 
 function handleErrors(error: any) {
@@ -18,7 +18,7 @@ function handleErrors(error: any) {
 
 export async function getAllUsers() {
   try {
-    const response = await axios.get(backendUrl + "getAllUsers/", {
+    const response = await axios.get(BACKEND_URL + "getAllUsers/", {
       headers: headers,
     })
     return response.data
@@ -29,7 +29,7 @@ export async function getAllUsers() {
 
 export async function getMessagesForUser(userId: string) {
   try {
-    const response = await axios.get(backendUrl + "getMessagesForUser/", {
+    const response = await axios.get(BACKEND_URL + "getMessagesForUser/", {
       headers: headers,
       params: { userId: userId },
     })
@@ -43,7 +43,7 @@ export async function getMessagesForUser(userId: string) {
 export async function selectAction(userId: string, actionId: number) {
   try {
     const response = await axios.post(
-      backendUrl + "selectAction/",
+      BACKEND_URL + "selectAction/",
       {
         actionId: actionId,
         userId: userId,
@@ -59,7 +59,7 @@ export async function selectAction(userId: string, actionId: number) {
 export async function recordClickEvent(userId: string, actionId: number) {
   try {
     const response = await axios.post(
-      backendUrl + "recordClickEvent/",
+      BACKEND_URL + "recordClickEvent/",
       {
         actionId: actionId,
         userId: userId,
@@ -75,7 +75,7 @@ export async function recordClickEvent(userId: string, actionId: number) {
 export async function recordImpression(userId: string, promptId: number) {
   try {
     const response = await axios.post(
-      backendUrl + "recordImpression/",
+      BACKEND_URL + "recordImpression/",
       {
         promptId: promptId,
         userId: userId,
