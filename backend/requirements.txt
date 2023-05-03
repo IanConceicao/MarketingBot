@@ -14,7 +14,9 @@ pathspec==0.11.1
 Pillow==9.5.0
 platformdirs==3.5.0
 pluggy==1.0.0
+psycopg2==2.9.6
 pytest==7.3.1
 pytz==2023.3
 sqlparse==0.4.4
 typing_extensions==4.5.0
+whitenoise==6.4.0
