@@ -9,7 +9,7 @@ Use `Python 3.11` It is best to create a new virtual environment. You can use ve
 ### Install depedencies:
 
 ```
-pip install -r requirements.txt
+pip install -r dev-requirements.txt
 ```
 
 ### Setup Database:
@@ -65,7 +65,13 @@ python manage.py loaddata startermodels.json
 ### Collect static files:
 
 ```
-python manage.py collectstatic && gunicorn marketingbot.wsgi
+python manage.py collectstatic
+```
+
+### Run server
+
+```
+gunicorn marketingbot.wsgi
 ```
 
 ## Helpful Tips:
