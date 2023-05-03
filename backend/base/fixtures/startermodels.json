@@ -1,0 +1,67 @@
+[
+  {
+    "model": "base.prompt",
+    "pk": 1,
+    "fields": {
+      "text": "Welcome to the demo promotional flow USER_NAME! Are you interested in our coupon promotion?",
+      "imageUrl": "",
+      "impressionCount": 0
+    }
+  },
+  {
+    "model": "base.prompt",
+    "pk": 2,
+    "fields": {
+      "text": "Here is our unique promotional coupon!\n10% off. Limit 1 per customer.",
+      "imageUrl": "",
+      "impressionCount": 0
+    }
+  },
+  {
+    "model": "base.prompt",
+    "pk": 3,
+    "fields": {
+      "text": "No worries!\nHave a nice day!",
+      "imageUrl": "nonNUll",
+      "impressionCount": 0
+    }
+  },
+  {
+    "model": "base.action",
+    "pk": 1,
+    "fields": {
+      "text": "Yes! Show me coupon",
+      "redirect": "",
+      "prompt": 1,
+      "nextPrompt": 2,
+      "clickEventCount": 0
+    }
+  },
+  {
+    "model": "base.action",
+    "pk": 2,
+    "fields": {
+      "text": "No, thanks",
+      "redirect": "",
+      "prompt": 1,
+      "nextPrompt": 3,
+      "clickEventCount": 0
+    }
+  },
+  {
+    "model": "base.action",
+    "pk": 3,
+    "fields": {
+      "text": "Reveal Coupon",
+      "redirect": "https://en.wikipedia.org/wiki/Coupon",
+      "prompt": 2,
+      "nextPrompt": null,
+      "clickEventCount": 0
+    }
+  },
+  {
+    "model": "base.user",
+    "pk": "Ian",
+    "fields": { "prompts": [1], "impressions": [], "clickEvents": [] }
+  }
+]
