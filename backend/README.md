@@ -9,13 +9,19 @@ Use `Python 3.11` It is best to create a new virtual environment. You can use ve
 ### Install depedencies:
 
 ```
-pip install -r dev-requirements.txt
+pip install -r requirements.txt
+```
+
+### Setup Database:
+
+```
+python manage.py migrate
 ```
 
 ### Optional: load starting models
 
 ```
-python manage.py loaddata startmodels.json
+python manage.py loaddata startermodels.json
 ```
 
 ### Run Server
@@ -42,6 +48,18 @@ Also use `Python 3.11`
 
 ```
 pip install -r requirements.txt
+```
+
+### Setup Database:
+
+```
+python manage.py migrate
+```
+
+### Optional: load starting models
+
+```
+python manage.py loaddata startermodels.json
 ```
 
 ### Collect static files:
