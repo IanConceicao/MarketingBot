@@ -1,3 +1,4 @@
+import { getBackendUrl } from "../Api"
 import type { Message } from "../types/Message"
 
 import ActionBox from "./ActionBox"
@@ -15,6 +16,7 @@ export default function MessageBox({
   validAction,
   fetchMessages,
 }: MessageBoxProps) {
+  const backendUrl = getBackendUrl()
   return (
     <div className="gap-y-1 flex flex-col max-w-[80%]">
       <div className="w-fit rounded-xl px-4 py-2 text-white bg-green-400 shadow-sm">
@@ -22,7 +24,7 @@ export default function MessageBox({
           <div className="py-2">
             <img
               alt="Ad"
-              src={"http://localhost:8000/" + message.imageUrl}
+              src={backendUrl + message.imageUrl.substring(1)}
               className="rounded-lg"
             />
           </div>

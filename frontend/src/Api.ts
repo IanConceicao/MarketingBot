@@ -1,9 +1,12 @@
 import axios from "axios"
-const BACKEND_URL =
-  (process.env.NODE_ENV === "production"
-    ? "https://marketing-bot.herokuapp.com/"
-    : "http://localhost:8000/") + "api/"
+const BACKEND_URL = getBackendUrl() + "api/"
 const headers = { "Content-Type": "application/json" }
+
+export function getBackendUrl() {
+  return process.env.NODE_ENV === "production"
+    ? "https://marketing-bot.herokuapp.com/"
+    : "http://localhost:8000/"
+}
 
 function handleErrors(error: any) {
   if (error.response) {

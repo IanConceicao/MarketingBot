@@ -22,7 +22,7 @@
     "pk": 3,
     "fields": {
       "text": "No worries!\nHave a nice day!",
-      "imageUrl": "nonNUll",
+      "imageUrl": "goodbye.png",
       "impressionCount": 0
     }
   },
