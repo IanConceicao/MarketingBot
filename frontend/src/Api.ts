@@ -1,6 +1,6 @@
 import axios from "axios"
-const LOCAL_URL = "http://localhost:8000"
-let BACKEND_URL = (process.env.BACKEND_URL || LOCAL_URL) + "/api/"
+const LOCAL_URL = "http://localhost:8000/"
+let BACKEND_URL = (process.env.BACKEND_URL || LOCAL_URL) + "api/"
 const headers = { "Content-Type": "application/json" }
 
 function handleErrors(error: any) {
