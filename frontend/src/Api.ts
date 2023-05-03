@@ -1,5 +1,8 @@
 import axios from "axios"
-const BACKEND_URL = process.env.BACKEND_URL + "api/"
+const BACKEND_URL =
+  (process.env.NODE_ENV === "production"
+    ? "https://marketing-bot.herokuapp.com/"
+    : "http://localhost:8000/") + "api/"
 const headers = { "Content-Type": "application/json" }
 
 function handleErrors(error: any) {
