@@ -24,7 +24,7 @@ export default function Chatbox() {
 
   useEffect(() => {
     scrollToBottom()
-    messages.forEach((message) => recordImpression(userId, message.id))
+    messages.forEach((message) => recordImpression(userId, message.prompt.id))
   }, [messages])
 
   return (
@@ -39,7 +39,7 @@ export default function Chatbox() {
           <div className="gap-y-4 grow flex flex-col w-full p-4 overflow-scroll">
             {messages.map((message, index) => (
               <MessageBox
-                key={message.text}
+                key={message.id}
                 message={message}
                 userId={userId}
                 fetchMessages={fetchTheMessages}

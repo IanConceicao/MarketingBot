@@ -26,9 +26,20 @@ class Action(models.Model):
     )  # Total number of clicks on this action
 
 
+class Message(models.Model):
+    prompt = models.ForeignKey(
+        Prompt, models.CASCADE, blank=True, null=True, related_name="+"
+    )
+    actions = models.ManyToManyField(Action, related_name="+")
+    time = models.DateTimeField(auto_now=True)
+
+
+
 class User(models.Model):
     id = models.TextField(primary_key=True)
-    prompts = models.ManyToManyField(Prompt, related_name="+")  # List of prompts served
+    messages = models.ManyToManyField(
+        Message, related_name="+", blank=True
+    )  # List of prompts served
     impressions = models.ManyToManyField(
         Prompt, related_name="+", blank=True
     )  # List of prompts viewed

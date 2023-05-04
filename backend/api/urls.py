@@ -11,4 +11,5 @@ urlpatterns = [
     path("uploadImage/", views.uploadImage),
     path("recordClickEvent/", views.recordClickEvent),
     path("recordImpression/", views.recordImpression),
+    path("createUser", views.createUser),
 ]

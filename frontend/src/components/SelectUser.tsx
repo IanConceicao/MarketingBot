@@ -14,9 +14,7 @@ export default function SelectUser({ userId, setUserId }: NavbarProps) {
 
   useEffect(() => {
     const fetchUserIds = async () => {
-      setAllUserIds(
-        (await getAllUsers()).map((user: { id: string }) => user.id)
-      )
+      setAllUserIds(await getAllUsers())
     }
 
     fetchUserIds()

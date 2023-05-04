@@ -20,16 +20,17 @@ export default function MessageBox({
   return (
     <div className="gap-y-1 flex flex-col max-w-[80%]">
       <div className="w-fit rounded-xl px-4 py-2 text-white bg-green-400 shadow-sm">
-        {message.imageUrl !== null && message.imageUrl.trim() !== "" && (
-          <div className="py-2">
-            <img
-              alt="Ad"
-              src={backendUrl + message.imageUrl.substring(1)}
-              className="rounded-lg"
-            />
-          </div>
-        )}
-        {message.text}
+        {message.prompt.imageUrl !== null &&
+          message.prompt.imageUrl.trim() !== "" && (
+            <div className="py-2">
+              <img
+                alt="Ad"
+                src={backendUrl + message.prompt.imageUrl.substring(1)}
+                className="rounded-lg"
+              />
+            </div>
+          )}
+        {message.prompt.text}
       </div>
 
       {message.actions.map((action) => (

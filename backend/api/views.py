@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from base import services
 
 
+# TODO: Use serializers to validate input: https://www.django-rest-framework.org/api-guide/serializers/
 @api_view(["Get"])
 def healthy(request):
     return Response("Healthy")
@@ -56,3 +57,10 @@ def recordImpression(request):
     if not request.data.get("userId") or not request.data.get("promptId"):
         return Response("Expects 'userId' and 'actionId' integers", status=400)
     return services.recordImpression(request)
+
+
+@api_view(["POST"])
+def createUser(request):
+    if not request.data.get("userId"):
+        return Response("Expects 'userId' in body", status=400)
+    return services.createUser(request)

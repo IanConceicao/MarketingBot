@@ -58,15 +58,5 @@
       "nextPrompt": null,
       "clickEventCount": 0
     }
-  },
-  {
-    "model": "base.user",
-    "pk": "Ian",
-    "fields": { "prompts": [1], "impressions": [], "clickEvents": [] }
-  },
-  {
-    "model": "base.user",
-    "pk": "Andre",
-    "fields": { "prompts": [1], "impressions": [], "clickEvents": [] }
   }
 ]

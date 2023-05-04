@@ -1,6 +1,11 @@
 from rest_framework.response import Response
-from api.serailizers import PromptSerializer, UserSerailizer, ActionSerailizer
-from base.models import Prompt, Action, User
+from api.serailizers import (
+    PromptSerializer,
+    UserSerializer,
+    ActionSerializer,
+    MessageSerializer,
+)
+from base.models import Prompt, Action, User, Message
 
 
 def uploadImage(request):
@@ -56,9 +61,14 @@ def selectAction(request):
     data = request.data
     user = User.objects.get(pk=data["userId"])
     action = Action.objects.get(pk=data["actionId"])
+    nextPrompt = action.nextPrompt
 
-    user.prompts.add(action.nextPrompt)
-    user.save()
+    if nextPrompt:
+        newMessage = Message.objects.create(prompt=nextPrompt)
+        newMessage.save()  # Necessary before calling add()
+        newMessage.actions.add(*Action.objects.filter(prompt=nextPrompt.pk))
+        user.messages.add(newMessage)
+        user.save()
 
     return Response("Action has been selected")
 
@@ -66,18 +76,21 @@ def selectAction(request):
 def getUser(request):
     data = request
     user = User.objects.get(pk=data["userId"])
-    serializer = UserSerailizer(user)
+    serializer = UserSerializer(user)
     return Response(serializer.data)
 
 
 def getAllUsers(request):
     users = User.objects.all()
-    return Response(UserSerailizer(users, many=True).data)
+    user_list = []
+    for user in users:
+        user_list.append(user.pk)
+    return Response(user_list)
 
 
 def getAllActions(request):
     actions = Action.objects.all()
-    return Response(ActionSerailizer(actions, many=True).data)
+    return Response(ActionSerializer(actions, many=True).data)
 
 
 def getAllPrompts(request):
@@ -86,20 +99,37 @@ def getAllPrompts(request):
 
 
 def getMessagesForUser(request):
-    # Get a message for a prompt
     data = request.query_params
     user = User.objects.get(pk=data["userId"])
 
-    prompt_list = []
-    for prompt in user.prompts.all():
-        # For each prompt our user has, add its associate actions
-        prompt_dict = PromptSerializer(prompt).data
+    messages = user.messages.all().order_by("time")
+    message_list = MessageSerializer(messages, many=True).data
+    for message in message_list:
+        message["prompt"]["text"] = message["prompt"]["text"].replace(
+            "USER_NAME", user.pk
+        )
 
-        actions = Action.objects.filter(prompt=prompt.id)
-        actions_list = ActionSerailizer(actions, many=True).data
-        prompt_dict["text"] = prompt_dict["text"].replace("USER_NAME", user.pk)
-        prompt_dict["actions"] = actions_list
+    return Response(message_list)
 
-        prompt_list.append(prompt_dict)
 
-    return Response(prompt_list)
+def createUser(request):
+    data = request.data
+    userId = data["userId"]
+
+    # Make user
+    newUser = User(id=userId)
+
+    # Get initial objs
+    initialPrompt = Prompt.objects.get(pk=1)
+    initialActions = Action.objects.filter(prompt=initialPrompt)
+
+    # Make and set user's initial message
+    initialMessage = Message.objects.create(prompt=initialPrompt)
+    initialMessage.actions.add(*initialActions)
+    newUser.save()  # Needed before we can do an add()
+    newUser.messages.add(initialMessage)
+
+    newUser.save()
+    initialMessage.save()
+
+    return Response("Created user {}".format(userId))

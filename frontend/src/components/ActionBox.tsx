@@ -1,6 +1,7 @@
 import type { MouseEvent } from "react"
 
 import { recordClickEvent, selectAction } from "../Api"
+import type { Action } from "../types/Action"
 interface ActionBoxInterface {
   action: Action
   userId: string
